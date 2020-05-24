@@ -1,7 +1,8 @@
-package br.com.fabiokreis.animals
+package br.com.fabiokreis.animals.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import br.com.fabiokreis.animals.R
 
 class MainActivity : AppCompatActivity() {
 
