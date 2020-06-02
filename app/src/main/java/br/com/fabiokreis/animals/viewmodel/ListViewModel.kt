@@ -3,7 +3,10 @@ package br.com.fabiokreis.animals.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import br.com.fabiokreis.animals.di.AppModule
+import br.com.fabiokreis.animals.di.CONTEXT_APP
 import br.com.fabiokreis.animals.di.DaggerViewModelComponent
+import br.com.fabiokreis.animals.di.TypeOfContext
 import br.com.fabiokreis.animals.model.Animal
 import br.com.fabiokreis.animals.model.AnimalApiService
 import br.com.fabiokreis.animals.model.ApiKey
@@ -25,12 +28,17 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
     @Inject
     lateinit var apiService: AnimalApiService
 
-    private val prefs = SharedPreferencesHelper(getApplication())
+    @Inject
+    @field:TypeOfContext(CONTEXT_APP)
+    lateinit var prefs: SharedPreferencesHelper
 
     private var invalidApiKey = false
 
     init {
-        DaggerViewModelComponent.create().inject(this)
+        DaggerViewModelComponent.builder()
+            .appModule(AppModule(getApplication()))
+            .build()
+            .inject(this)
     }
 
     fun refresh() {

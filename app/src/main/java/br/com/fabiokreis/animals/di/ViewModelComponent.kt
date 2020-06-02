@@ -2,8 +2,10 @@ package br.com.fabiokreis.animals.di
 
 import br.com.fabiokreis.animals.viewmodel.ListViewModel
 import dagger.Component
+import javax.inject.Singleton
 
-@Component(modules = [ApiModule::class])
+@Singleton
+@Component(modules = [ApiModule::class, PrefsModule::class, AppModule::class])
 interface ViewModelComponent {
 
     fun inject(viewModel: ListViewModel)
